@@ -2,18 +2,24 @@ package Servicio;
 
 import Entidad.Habitacion;
 import Entidad.Persona;
+import Entidad.Reserva;
 import Utils.Setup;
+import Utils.TestAsker;
 
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class HotelServicio extends Setup {
 
-    Scanner leer = new Scanner(System.in).useDelimiter("\n");
+    TestAsker leer;
+
+    public HotelServicio(TestAsker leer) {
+        this.leer = leer;
+    }
 
     public String verificarRegistro() {
 
-        System.out.println("Ingrese su DNI");
-        String dni = leer.next();
+        String dni = leer.stringAsk("Ingrese su DNI");
 
             if (!buscarPersona(dni)) {
                 crearPersona(dni);
@@ -35,14 +41,11 @@ public class HotelServicio extends Setup {
     public void crearPersona(String dni) {
 
         Persona p;
-        System.out.println("Ingresa el nombre completo");
-        String nombre = leer.next();
-        System.out.println("Indique el pais de nacimiento");
-        String nacionalidad = leer.next();
-        System.out.println("Indique la edad");
-        Integer edad = leer.nextInt();
+        String nombre = leer.stringAsk("Ingresa el nombre completo");
+        String nacionalidad = leer.stringAsk("Indique el pais de nacimiento");
+        Integer edad = leer.intAsk("Indique la edad");
 
-        p= new Persona(dni, nombre, nacionalidad, edad);
+        p = new Persona(dni, nombre, nacionalidad, edad);
         listper.add(p);
 
     }
@@ -51,14 +54,11 @@ public class HotelServicio extends Setup {
 
         for (Persona auxp: listper) {
             if (dni.equalsIgnoreCase(auxp.getDni())) {
-                System.out.println("Ingrese el nombre");
-                String nom = leer.next();
+                String nom = leer.stringAsk("Ingrese el nombre");
                 auxp.setNombre(nom);
-                System.out.println("Ingrese la nacionalidad");
-                String nac = leer.next();
+                String nac = leer.stringAsk("Ingrese la nacionalidad");
                 auxp.setNacionalidad(nac);
-                System.out.println("ingrese la edad");
-                Integer edad = leer.nextInt();
+                Integer edad = leer.intAsk("ingrese la edad");
                 auxp.setEdad(edad);
             }
         }
@@ -78,26 +78,32 @@ public class HotelServicio extends Setup {
 
     }
 
-    public void crearReserva() {
+    public Reserva crearReserva() {
 
-        System.out.println("Para cuantas personas la reserva?");
-        int perRes = leer.nextInt();
-        switch (perRes) {
-            case 1: 
-            
-            
-        }
-        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        Reserva r;
 
+        int perRes = leer.intAsk("Para cuantas personas la reserva?");
+        // TODO evaluar sistema de asignacion para reservasde mas de 3 personas
+        String hab = returnHabitacion(perRes);
+        LocalDate fechaIng = LocalDate.parse(leer.stringAsk("Indique la fecha de ingreso MM/DD/AAAA"), formatter);
+        LocalDate fechaEgr = LocalDate.parse(leer.stringAsk("Indique la fecha de egreso MM/DD/AAAA"),formatter);
+
+        r = new Reserva(hab, perRes, fechaIng, fechaEgr);
+        listres.add(r);
+
+        return r;
     }
     
     public String returnHabitacion(int perRes) {
 
-        for (:
-             ) {
-            
+        for (Habitacion auxH: listhab) {
+            if (perRes == auxH.getCapacidad()){
+                return auxH.getCodHab();
+            }
         }
-        
+        throw new RuntimeException("no disponible");
     }
+
 
 }

@@ -22,12 +22,12 @@ public class Setup {
         Habitacion h4 = new Habitacion("104", 2, true);
         Habitacion h5 = new Habitacion("105", 2, true);
 
-        Habitacion h6 = new Habitacion("106", 2, true);
-        Habitacion h7 = new Habitacion("107", 2, true);
-        Habitacion h8 = new Habitacion("108", 2, true);
+        Habitacion h6 = new Habitacion("106", 3, true);
+        Habitacion h7 = new Habitacion("107", 3, true);
+        Habitacion h8 = new Habitacion("108", 3, true);
 
-        Habitacion h9 = new Habitacion("109", 2, true);
-        Habitacion h10 = new Habitacion("110", 2, true);
+        Habitacion h9 = new Habitacion("109", 1, true);
+        Habitacion h10 = new Habitacion("110", 1, true);
 
         listhab.add(h1);
         listhab.add(h2);

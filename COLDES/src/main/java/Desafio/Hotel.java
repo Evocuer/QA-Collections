@@ -1,13 +1,14 @@
 package Desafio;
 
 import Servicio.HotelServicio;
+import Utils.TestAsker;
 
 import java.util.Scanner;
 
 public class Hotel {
 
     static Scanner leer = new Scanner(System.in).useDelimiter("\n");
-    static HotelServicio hs = new HotelServicio();
+    static HotelServicio hs = new HotelServicio(new TestAsker(System.in,System.out));
 
     public static void main(String[] args) {
 
